@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.cykj.auc.mapper.UserMapper">
+    <insert id="addUser" parameterType="UserInfo">
+        insert into t_user(account,pwd)values (#{account},#{pwd})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="UserInfo">
+<!--    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">-->
+<!--                -->
+<!--    </selectKey>-->
+        delete  from t_user where id = #{id};
+    </delete>
+
+    <update id="updateUser" parameterType="UserInfo">
+            update t_user set account = #{account},pwd = #{pwd}
+    </update>
+
+    <select id="findAll" resultType="UserInfo" parameterType="UserInfo">
+        select * from t_user
+<!--        <if test="id != null">-->
+<!--            where id = #{id}-->
+<!--        </if>-->
+<!--            <choose>-->
+<!--                <when test="account != null">-->
+<!--                    and account like  #{account}-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    and id = 1-->
+<!--                </otherwise>-->
+
+<!--            </choose>-->
+                <if test="id != null">
+                    <where>
+                        id = #{id}
+                    </where>
+                </if>
+    </select>
+</mapper>
